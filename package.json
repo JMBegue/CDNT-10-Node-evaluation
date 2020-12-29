@@ -4,8 +4,12 @@
   "description": "test evaluation node",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start-dev": "nodemon app.js",
+    "migrate": "npx sequelize db:migrate && npx sequelize db:seed:all",
+    "migrate:reset": "npx sequelize db:migrate:undo:all && npm run migrate",
+    "test": "cross-env NODE_ENV=test jest --coverage --forceExit --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset"
+    },
   "author": "",
   "license": "ISC",
   "dependencies": {
